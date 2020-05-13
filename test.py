@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 
 G = nx.Graph()
 
-G.add_node(1)
-G.add_nodes_from([2, 3, 4, 5])
-G.add_edges_from([(4, 5)])
+while (True):
+	nom = input("Ajouter un noeud (entrez un nombre): ")
+	# Ajout du noeud
+	G.add_node(nom)
 
-nx.draw(G, with_labels=True)
-plt.show()
-
-print("wesh gros")
-fdsfdsfds
+	# Mise a jour de l'affichage
+	plt.clf() # Nettoyage du plot
+	nx.draw(G, with_labels=True) # Dessin du nouveau plot
+	plt.pause(0.01) # Affichage non bloquant
