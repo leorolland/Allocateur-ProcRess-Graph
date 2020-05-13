@@ -6,7 +6,10 @@ G = nx.Graph()
 while (True):
 	nom = input("Ajouter un noeud (entrez un nombre): ")
 	# Ajout du noeud
-	G.add_node(nom)
+	G.add_node(noeud)
+	
+    # Ajout arc 
+    G = addArc(G)
 
 	# Mise a jour de l'affichage
 	plt.clf() # Nettoyage du plot
