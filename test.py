@@ -9,3 +9,5 @@ G.add_edges_from([(4, 5)])
 
 nx.draw(G, with_labels=True)
 plt.show()
+
+print("wesh gros")
