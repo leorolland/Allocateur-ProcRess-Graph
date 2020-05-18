@@ -49,6 +49,10 @@ class Ressource(object):
 			self.processus = self.demandes.popleft()
 			print("La ressource " + str(self.name) + " à été attribuée au processus " + str(self.processus))
 
+	def getName(self):
+		"""Renvoie le nom de cette ressource"""
+		return self.name		
+
 	def __str__(self):
 		"""Affichage en string"""
 		return self.name + "(" + ("occupée" if self.processus else "libre") + ")"
