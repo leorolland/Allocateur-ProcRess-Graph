@@ -20,11 +20,18 @@ class Shell(object):
 		ressName = input("Entrez le nom de la ressource : ")
 		self.a.askForRessource(procName, ressName)
 
+	def libererRessource(self):
+		"""O4 - Libération d’une ressource par un processus"""
+		ressName = input("Entrez le nom de la ressource : ")
+		procName = input("Entrez le nom du processus : ")
+		self.a.libererRessource(procName, ressName)
+
 	# Liste des commandes
 	cmds = {
 		1: createProcessus, # 01 - Créer processus
 		2: removeProcessus, # 02 - Détruire processus
-		3: askForRessource
+		3: askForRessource,
+		4: libererRessource
 	}
 
 	def __init__(self, allocateur, aff):
@@ -45,6 +52,7 @@ class Shell(object):
 		print(" 1 - Créer un processus")
 		print(" 2 - Détruire un processus")
 		print(" 3 - Demander une ressource pour un processus")
+		print(" 4 - Libérer une ressource d'un processus")
 		n = int(input("Entrez le numéro de commande : "))
 		# Récupération et appel de la fonction associée au numéro
 		func = self.cmds.get(n)
