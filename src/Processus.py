@@ -5,7 +5,6 @@ class Processus(object):
 	#nom du processus
 	name = ""
 
-
 	def __init__(self,name=""):
 		self.name = name
 
