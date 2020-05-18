@@ -24,6 +24,7 @@ class Affichage(object):
 		# Mise a jour de l'affichage
 		self.G.clear()
 		self.addProcessus()
+		self.addRessources()
 		plt.clf() # Nettoyage du plot
 		nx.draw(self.G, with_labels=True) # Dessin du nouveau plot
 		plt.pause(0.01) # Affichage non bloquant
