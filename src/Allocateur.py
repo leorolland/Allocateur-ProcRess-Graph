@@ -25,18 +25,18 @@ class Allocateur(object):
 
 	def removeProcessus(self, name):
 		"""Supprime un processus"""
-		# Récupération de l'instance 
-		
-		# Suppression d'un processus de la liste
-		self.processus = [p for p in self.processus if p.getName() != name]
+		# Récupération de l'instance dans la liste des processus
+		inst = next(p for p in self.processus if inst.getName() == name)
+		# Suppression de cet élément dans la liste
+		self.processus = [p for p in self.processus if p != inst]
 		# Suppression des demandes et allocations en ressources
 		for r in self.ressources:
 			# Si une ressource etait allouée à ce processus
-			if r.getAllocatedProcessus().getName() == name:
+			if r.getAllocatedProcessus() == inst:
 				# On libère la ressource
 				r.liberer()
 			# Dans tous les cas, on le retire de la file d'attente
-			r.retirer(name)
+			r.retirerFileAttente(inst)
 
 
 	def __str__(self):
