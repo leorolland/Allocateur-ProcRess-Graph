@@ -31,10 +31,11 @@ class Shell(object):
 		self.a = allocateur
 		# Boucle principale du programme
 		while (True):
+			aff.affichageGlobal()
 			print(str(self.a))
 			self.mainMenu()
 			self.a.update()
-			aff.affichageGlobal()
+
 			
 
 	def mainMenu(self):
