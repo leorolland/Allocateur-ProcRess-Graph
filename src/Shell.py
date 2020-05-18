@@ -27,13 +27,15 @@ class Shell(object):
 		3: askForRessource
 	}
 
-	def __init__(self, allocateur):
+	def __init__(self, allocateur, aff):
 		self.a = allocateur
 		# Boucle principale du programme
 		while (True):
 			print(str(self.a))
 			self.mainMenu()
 			self.a.update()
+			aff.affichageGlobal()
+			
 
 	def mainMenu(self):
 		"""Affichage et input du menu principal"""
