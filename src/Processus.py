@@ -5,8 +5,6 @@ class Processus(object):
 	#nom du processus
 	name = ""
 
-	#liste des ressources allouées
-	ressources = deque()
 
 	def __init__(self,name=""):
 		self.name = name
