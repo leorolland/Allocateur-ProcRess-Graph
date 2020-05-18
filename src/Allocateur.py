@@ -41,6 +41,16 @@ class Allocateur(object):
 			# Dans tous les cas, on le retire de la file d'attente
 			r.retirerFileAttente(inst)
 
+	def askForRessource(self, processusName, ressourceName):
+		"""Demande l'attribution d'une ressource à un processus"""
+		proc = next((p for p in self.processus if p.getName() == processusName), None)
+		ress = next((r for r in self.ressources if r.getName() == ressourceName), None)
+		if not proc or not ress:
+			print("Le processus " + processusName + " ou la ressource " + ressourceName + " n'éxiste pas.")
+			return
+		# TODO : Vérifier l'interblocage
+		# Ajout du processus à la liste d'attente
+		ress.ajouterFileAttente(proc)
 
 	def __str__(self):
 		"""Affichage en string"""

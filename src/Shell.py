@@ -16,8 +16,9 @@ class Shell(object):
 	
 	def askForRessource(self):
 		"""O3 - Demande de ressource par un processus"""
-		name = input("Entrez le nom du processus : ")
-		# TODO
+		procName = input("Entrez le nom du processus : ")
+		ressName = input("Entrez le nom du processus : ")
+		self.a.askForRessource(procName, ressName)
 
 	# Liste des commandes
 	cmds = {
