@@ -1,49 +1,48 @@
 class Shell(object):
-  """Interface de dialogue avec l'utilisateur"""
+	"""Interface de dialogue avec l'utilisateur"""
 
-  # Allocateur
-  a = None
+	# Allocateur
+	a = None
 
-  def createProcessus(self):
-    """O1 - Créer un processus"""
-    name = input("Entrez le nom du processus : ")
-    # TODO
-    # self.a.ajouterProcessus(...)
+	def createProcessus(self):
+		"""O1 - Créer un processus"""
+		name = input("Entrez le nom du processus : ")
+		self.a.createProcessus(name)
 
-  def removeProcessus(self):
-    """O2 - Détruire un processus"""
-    name = input("Entrez le nom du processus à détruire: ")
-    # TODO
-  
-  def askForRessource(self):
-    """O3 - Demande de ressource par un processus"""
-    name = input("Entrez le nom du processus : ")
-    # TODO
+	def removeProcessus(self):
+		"""O2 - Détruire un processus"""
+		name = input("Entrez le nom du processus à détruire: ")
+		self.a.removeProcessus(name)
+	
+	def askForRessource(self):
+		"""O3 - Demande de ressource par un processus"""
+		name = input("Entrez le nom du processus : ")
+		# TODO
 
-  # Liste des commandes
-  cmds = {
-    1: createProcessus, # 01 - Créer processus
-    2: removeProcessus, # 02 - Détruire processus
-    3: askForRessource
-  }
+	# Liste des commandes
+	cmds = {
+		1: createProcessus, # 01 - Créer processus
+		2: removeProcessus, # 02 - Détruire processus
+		3: askForRessource
+	}
 
-  def __init__(self, allocateur):
-    self.a = allocateur
-    # Boucle principale du programme
-    while (True):
-      print(str(self.a))
-      self.mainMenu()
-      self.a.update()
+	def __init__(self, allocateur):
+		self.a = allocateur
+		# Boucle principale du programme
+		while (True):
+			print(str(self.a))
+			self.mainMenu()
+			self.a.update()
 
-  def mainMenu(self):
-    """Affichage et input du menu principal"""
-    print("---- Menu principal ----")
-    print("Liste des ordres :")
-    print(" 1 - Créer un processus")
-    print(" 2 - Détruire un processus")
-    print(" 3 - Demander une ressource pour un processus")
-    n = int(input("Entrez le numéro de commande : "))
-    # Récupération et appel de la fonction associée au numéro
-    func = self.cmds.get(n)
-    func(self)
+	def mainMenu(self):
+		"""Affichage et input du menu principal"""
+		print("---- Menu principal ----")
+		print("Liste des ordres :")
+		print(" 1 - Créer un processus")
+		print(" 2 - Détruire un processus")
+		print(" 3 - Demander une ressource pour un processus")
+		n = int(input("Entrez le numéro de commande : "))
+		# Récupération et appel de la fonction associée au numéro
+		func = self.cmds.get(n)
+		func(self)
 
