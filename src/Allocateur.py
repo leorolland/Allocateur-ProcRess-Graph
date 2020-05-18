@@ -43,14 +43,37 @@ class Allocateur(object):
 
 	def askForRessource(self, processusName, ressourceName):
 		"""Demande l'attribution d'une ressource à un processus"""
+		proc = self.getProcessusInstance(processusName)
+		ress = self.getRessourceInstance(ressourceName)
+		if proc and ress:
+			# TODO : Vérifier l'interblocage
+			# Ajout du processus à la liste d'attente
+			ress.ajouterFileAttente(proc)
+	
+	def libererRessource(self, processusName, ressourceName):
+		"""Libération d'une ressource par un processus"""
+		proc = self.getProcessusInstance(processusName)
+		ress = self.getRessourceInstance(ressourceName)
+		if proc and ress:
+			# On retire le processus de la file d'attente
+			ress.retirerFileAttente(proc)
+			# Si la ressource était allouée à ce processus, on la libère
+			if ress.getAllocatedProcessus() == proc:
+				ress.liberer()
+
+	def getProcessusInstance(self, processusName):
+		"""Renvoie l'instance d'un processus"""
 		proc = next((p for p in self.processus if p.getName() == processusName), None)
+		if not proc:
+			print("Le processus " + processusName + " n'éxiste pas")
+		return proc
+
+	def getRessourceInstance(self, ressourceName):
+		"""Renvoie l'instance d'une ressource""" 
 		ress = next((r for r in self.ressources if r.getName() == ressourceName), None)
-		if not proc or not ress:
-			print("Le processus " + processusName + " ou la ressource " + ressourceName + " n'éxiste pas.")
-			return
-		# TODO : Vérifier l'interblocage
-		# Ajout du processus à la liste d'attente
-		ress.ajouterFileAttente(proc)
+		if not ress:
+			print("La ressource " + ressourceName + " n'éxiste pas")
+		return ress
 
 	def __str__(self):
 		"""Affichage en string"""
