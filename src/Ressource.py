@@ -25,9 +25,9 @@ class Ressource(object):
 		# Mise à jour du composant
 		self.update()
 
-	def retirerFileAttente(self, name):
+	def retirerFileAttente(self, processus):
 		"""Supprime un processus de la file d'attente de cette ressource"""
-		self.demandes
+		self.demandes = [d for d in self.demandes if d != processus]
 		# Mise à jour du composant
 		self.update()
 
