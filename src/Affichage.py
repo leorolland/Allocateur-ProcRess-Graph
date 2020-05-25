@@ -10,6 +10,7 @@ class Affichage(object):
 	#Graphe
 	G = nx.Graph()
 
+
 	def __init__(self, all):
 		self.allocateur = all
 
@@ -34,8 +35,19 @@ class Affichage(object):
 		self.addProcessus()
 		self.addRessources()
 		self.addLiens()
+
+		colorNodes = []
+		tailleNodes = []
+		for n in self.G.nodes:
+			if n[0] == 'R':
+				colorNodes.append('red')
+				tailleNodes.append(500)
+			else:
+				colorNodes.append('green')
+				tailleNodes.append(1500)
+
 		plt.clf() # Nettoyage du plot
-		nx.draw(self.G, with_labels=True, node_color='red') # Dessin du nouveau plot
+		nx.draw(self.G, with_labels=True,node_color=colorNodes,node_size=tailleNodes) # Dessin du nouveau plot
 		plt.pause(0.01) # Affichage non bloquant
 		
 
