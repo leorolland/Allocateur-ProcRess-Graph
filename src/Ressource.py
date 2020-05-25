@@ -18,10 +18,9 @@ class Ressource(object):
 
 	def ajouterFileAttente(self, processus):
 		"""Ajoute un processus dans la file d'attente de cette ressource."""
+		print("Ajout de " + str(processus) + " à la liste d'attente de " + str(self))
 		# Ajout de l'élément à droite
 		self.demandes.append(processus)
-		# Affichage de la queue
-		print(self.demandes)
 		# Mise à jour du composant
 		self.update()
 
@@ -44,10 +43,11 @@ class Ressource(object):
 	def update(self):
 		"""Met à jour ce composant"""
 		# Si aucun processus n'est alloué et qu'il y en a un en file d'attente
+		print("Mise à jour de la ressource " + self.name)
 		if not self.processus and len(self.demandes)>0:
 			# On l'alloue a cette ressource
 			self.processus = self.demandes.popleft()
-			print("La ressource " + str(self.name) + " à été attribuée au processus " + str(self.processus))
+			print("La ressource " + self.name + " à été attribuée au processus " + str(self.processus))
 
 	def getName(self):
 		"""Renvoie le nom de cette ressource"""

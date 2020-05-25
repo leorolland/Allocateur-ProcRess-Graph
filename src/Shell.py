@@ -1,8 +1,13 @@
+import sys
+
 class Shell(object):
 	"""Interface de dialogue avec l'utilisateur"""
 
 	# Allocateur
 	a = None
+
+	def quit(self):
+		sys.exit()
 
 	def createProcessus(self):
 		"""O1 - Créer un processus"""
@@ -26,13 +31,26 @@ class Shell(object):
 		procName = input("Entrez le nom du processus : ")
 		self.a.libererRessource(procName, ressName)
 
+	def afficherFilesAttente(self):
+		"""O5 - Affichage des files d’attente par ressource"""
+		ress = self.a.ressources
+		print("Affichage des files d'attentes :")
+		for r in ress:
+			print("   " + str(r))
+			liste = ""
+			for demande in r.demandes:
+				liste += str(demande)
+			print("      " + liste)
+
 	# Liste des commandes
-	cmds = {
-		1: createProcessus, # 01 - Créer processus
-		2: removeProcessus, # 02 - Détruire processus
-		3: askForRessource,
-		4: libererRessource
-	}
+	cmds = [
+		quit,
+		createProcessus, # 01 - Créer processus
+		removeProcessus, # 02 - Détruire processus
+		askForRessource,
+		libererRessource,
+		afficherFilesAttente
+	]
 
 	def __init__(self, allocateur, aff):
 		self.a = allocateur
@@ -43,18 +61,17 @@ class Shell(object):
 			self.mainMenu()
 			self.a.update()
 
-			
-
 	def mainMenu(self):
 		"""Affichage et input du menu principal"""
 		print("---- Menu principal ----")
 		print("Liste des ordres :")
+		print(" 0 - Quitter")
 		print(" 1 - Créer un processus")
 		print(" 2 - Détruire un processus")
 		print(" 3 - Demander une ressource pour un processus")
 		print(" 4 - Libérer une ressource d'un processus")
+		print(" 5 - Affichage des listes d'attente par processus")
 		n = int(input("Entrez le numéro de commande : "))
-		# Récupération et appel de la fonction associée au numéro
-		func = self.cmds.get(n)
+		func = self.cmds[n]
 		func(self)
 
