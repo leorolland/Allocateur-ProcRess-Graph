@@ -8,13 +8,14 @@ class Ressource(object):
 	name = ""
 
 	# Queue d'attente type 'deque'
-	demandes = deque()
+	demandes = None
 
 	# Processus auquel cette ressource est allouée, None si non allouée
 	processus = None
 
 	def __init__(self, name=""):
 		self.name = name
+		self.demandes = deque()
 
 	def ajouterFileAttente(self, processus):
 		"""Ajoute un processus dans la file d'attente de cette ressource."""
