@@ -45,7 +45,6 @@ class Ressource(object):
 	def update(self):
 		"""Met à jour ce composant"""
 		# Si aucun processus n'est alloué et qu'il y en a un en file d'attente
-		print("Mise à jour de la ressource " + self.name)
 		if not self.processus and len(self.demandes)>0:
 			# On l'alloue a cette ressource
 			self.processus = self.demandes.popleft()

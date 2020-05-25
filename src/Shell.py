@@ -39,17 +39,26 @@ class Shell(object):
 			print("   " + str(r))
 			liste = ""
 			for demande in r.demandes:
-				liste += str(demande)
+				liste += str(demande) + " "
 			print("      " + liste)
 
+	def afficherProcessusActifs(self):
+		"""06 - Affichage des processus actifs"""
+		print("Affichage des processus actifs :")
+		for r in self.a.ressources:
+			allocatedProc = a.getAllocatedProcessus(self)
+			if (allocatedProc):
+				print(str(allocatedProc))
+			
 	# Liste des commandes
 	cmds = [
 		quit,
 		createProcessus, # 01 - Créer processus
 		removeProcessus, # 02 - Détruire processus
-		askForRessource,
-		libererRessource,
-		afficherFilesAttente
+		askForRessource, # 03
+		libererRessource, # 04
+		afficherFilesAttente, # 05
+		afficherProcessusActifs, # 06
 	]
 
 	def __init__(self, allocateur, aff):
