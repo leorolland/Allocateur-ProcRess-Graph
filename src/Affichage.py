@@ -25,8 +25,14 @@ class Affichage(object):
 	def addLiens(self):
 		for r in self.allocateur.ressources:
 			tmp = r.getAllocatedProcessus()
+			dem = r.demandes
 			if tmp != None:
 				self.G.add_edge(r.getName(),tmp.getName())
+			if dem != None:	
+				for d in dem:
+					self.G.add_edge(d.getName(),r.getName(),length=10)
+
+			
 	
 	
 	def affichageGlobal(self):
