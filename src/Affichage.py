@@ -25,7 +25,7 @@ class Affichage(object):
 		for r in self.allocateur.ressources:
 			tmp = r.getAllocatedProcessus()
 			if tmp != None:
-				self.G.add_edge(r,tmp)
+				self.G.add_edge(r.getName(),tmp.getName())
 	
 	
 	def affichageGlobal(self):
@@ -35,7 +35,7 @@ class Affichage(object):
 		self.addRessources()
 		self.addLiens()
 		plt.clf() # Nettoyage du plot
-		nx.draw(self.G, with_labels=True) # Dessin du nouveau plot
+		nx.draw(self.G, with_labels=True, node_color='red') # Dessin du nouveau plot
 		plt.pause(0.01) # Affichage non bloquant
 		
 

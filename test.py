@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import time
 
 if __name__ == "__main__":
 	G = nx.Graph()
@@ -29,5 +30,6 @@ if __name__ == "__main__":
 	plt.clf() # Nettoyage du plot
 	nx.draw(G, with_labels=True) # Dessin du nouveau plot
 	plt.pause(0.01) # Affichage non bloquant
+	time.sleep(30)
     #plt.show()
 
