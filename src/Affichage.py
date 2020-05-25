@@ -8,7 +8,7 @@ class Affichage(object):
 	allocateur = None
 
 	#Graphe
-	G = nx.Graph()
+	G = nx.DiGraph()
 
 
 	def __init__(self, all):
