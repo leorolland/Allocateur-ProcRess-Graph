@@ -53,6 +53,62 @@ class Allocateur(object):
 			if ress.getAllocatedProcessus() == proc:
 				ress.liberer()
 
+	def attentesEntreProcessus(self):
+		attentes = []
+		for ress in self.ressources:
+			allocatedProc = ress.getAllocatedProcessus()
+			# Si la ressource est allouée
+			if allocatedProc:
+				# Pour chaque processus dans sa liste d'attente, on crée
+				# une attente
+				for attenteProc in ress.demandes:
+					attentes.append((attenteProc, allocatedProc))
+		return attentes
+
+	def detecterBoucle(self, attentes, premier, courant=None):
+		"""Fonction récursive renvoyant True si le processus "premier" est dans un interblocage"""
+		# Si on a rebouclé sur le premier, on renvoie true
+		if premier is courant:
+			return True
+		# Dans le cas du premier appel de la fonction, courant vaut None, il faut l'initialiser
+		if not courant:
+			courant = premier
+		# Sinon on cherche l'élément suivant
+		dependance = None
+		for attente in attentes:
+			if attente[0] is courant:
+				dependance = attente[1]
+		# Si il n'y a pas de suivant (dépendance) on renvoie false
+		if not dependance:
+			return False
+		# Si il y en a une on continue le parcours
+		return self.detecterBoucle(attentes, premier, dependance)
+
+	def detecterInterbloquages(self):
+		attentes = self.attentesEntreProcessus()
+		processusBloques = []
+		# Pour chaque processus, on suit le "chemin" de ses attentes
+		# Si on reboucle sur le même processus, il y a interblocage
+		# Si on tombe sur un processus qui n'attend aucun autre processus
+		# il n'y a pas interblocage pour ce dernier
+		for proc in self.processus:
+			# On regarde si ce processus est dans une situation d'interblocage
+			if self.detecterBoucle(attentes, premier=proc):
+				processusBloques.append(proc)
+		return processusBloques
+				
+	def resoudreInterblocage(self):
+		procBloques = self.detecterInterbloquages()
+		while len(procBloques):
+			proc = procBloques[0]
+			# On supprime proc de la liste d'attente d'une ressource demandée par proc
+			for ress in self.ressources:
+				if proc in ress.demandes:
+					ress.retirerFileAttente(proc)
+					break
+			# On met a jour la liste des proc bloqués
+			procBloques = self.detecterInterbloquages()
+
 	def getProcessusInstance(self, processusName):
 		"""Renvoie l'instance d'un processus"""
 		proc = next((p for p in self.processus if p.getName() == processusName), None)

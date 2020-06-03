@@ -39,7 +39,8 @@ Si arc d’un processus vers ressource : une demande
 - O5 : Affichage de la queue de processus en attente en “file indienne” sur un graphe dirigé, queue pour chaque ressource.
 - O6 : Affichage d’un sous graphe avec uniquement les processus actifs
 - O7 : Affichage des attentes par fermeture transitive du graphe, en gardant seulement les arcs significatifs.
-- O8 : Affichage des noeuds interloqués et des ressources liées à eux
+- O8 : Affichage des processus interbloqués et des ressources liées
+- O9 : Résolution de l'interblocage
 
 ## Règles de modélisation variantes
 - MV1 : Crée un sommet “processus” sur le graphe
@@ -52,7 +53,7 @@ Ajout de l’ordre O9 destiné résoudre l’interblocage
 
 ## Détection et correction de l’interblocage
 - Détection d’une boucle dans le graphe des interdépendances entre processus. Le graphes d’interdépendances entre processus résulte de la fermeture transitive utilisée pour O7, et ne présente pas les ressources.
-- Il faut rompre la boucle, on définit un numéro à chaque demande d’allocation (les allocations les plus récentes portent un numéro plus élevé), on supprime les dernières allocations jusqu’à ce qu’il n’y ait plus interblocage.
+- Il faut rompre la boucle, on prend un processus bloqué au hasard, on le retire de la liste d'attente de sa ressource demandée, on continue tant que l'interblocage persiste.
 
 ## Test de l’interblocage simple avec 2 processus
 
