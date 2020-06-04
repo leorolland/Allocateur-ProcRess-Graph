@@ -16,6 +16,8 @@ if __name__ == "__main__":
     print("Mode scénario.")
     print("Scénario 0 : interblocage simple")
     print("Scénario 1 : interblocage simple x2")
+    print("Scénario 2 : interblocage en 8")
+    print("Scénario 3 : interblocage boucle")
     n = int(input("Entrez un numéro de scénario : "))
     func = scenarios[n]
     func()

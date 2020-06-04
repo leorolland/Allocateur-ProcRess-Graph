@@ -65,14 +65,14 @@ class Allocateur(object):
 					attentes.append((attenteProc, allocatedProc))
 		return attentes
 
-	def detecterBoucle(self, attentes, premier, courant=None):
-		"""Fonction récursive renvoyant True si le processus "premier" est dans un interblocage"""
-		# Si on a rebouclé sur le premier, on renvoie true
-		if premier is courant:
+	def detecterBoucle(self, attentes, visites, courant=None):
+		"""Fonction récursive renvoyant True si le processus "visites" est dans un interblocage"""
+		# Si on a rebouclé sur le visites, on renvoie true
+		if courant in visites:
 			return True
-		# Dans le cas du premier appel de la fonction, courant vaut None, il faut l'initialiser
+		# Dans le cas du visites appel de la fonction, courant vaut None, il faut l'initialiser
 		if not courant:
-			courant = premier
+			courant = visites[0]
 		# Sinon on cherche l'élément suivant
 		dependance = None
 		for attente in attentes:
@@ -82,7 +82,7 @@ class Allocateur(object):
 		if not dependance:
 			return False
 		# Si il y en a une on continue le parcours
-		return self.detecterBoucle(attentes, premier, dependance)
+		return self.detecterBoucle(attentes, [*visites,courant], dependance)
 
 	def detecterInterbloquages(self):
 		attentes = self.attentesEntreProcessus()
@@ -93,7 +93,7 @@ class Allocateur(object):
 		# il n'y a pas interblocage pour ce dernier
 		for proc in self.processus:
 			# On regarde si ce processus est dans une situation d'interblocage
-			if self.detecterBoucle(attentes, premier=proc):
+			if self.detecterBoucle(attentes, visites=[proc]):
 				processusBloques.append(proc)
 		return processusBloques
 				
